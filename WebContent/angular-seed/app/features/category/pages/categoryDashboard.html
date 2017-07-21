@@ -1,0 +1,81 @@
+
+<div class="container" ng-controller="categoryController as ctrl">
+	<h1 class="well">Create Category</h1>
+
+	<!-- <div ng-if="ctrl.hasError" class="well">
+		<div ng-repeat="error in ctrl.errors track by $index" type="danger"
+			>{{error.message}}</div>
+	</div> -->
+	
+	<wh-error-message messages='ctrl.messages.content' type='ctrl.messages.type'></wh-error-message>
+
+	<div class="col-lg-12 well">
+		<div class="row">
+			<form>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<label >Category Name</label> <span class="mandatorySign">*</span> <input type="text" 
+								ng-model="ctrl.category.categoryName"
+								placeholder="Enter Category Name Here.." class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label >Category Description</label><span class="mandatorySign">*</span>
+						<textarea ng-model="ctrl.category.categoryDesc" required
+							placeholder="Enter Category Description Here.." rows="3"
+							class="form-control"></textarea>
+					</div>
+					<button ng-if="ctrl.category.id" type="button"
+						ng-click="ctrl.editCategory(ctrl.category)"
+						class="btn btn-lg btn-info">Update</button>
+					<button ng-if="!ctrl.category.id" type="button"
+						ng-click="ctrl.createCategory(ctrl.category)"
+						class="btn btn-lg btn-info">Create</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Category Description Table</div>
+				<!--    /.panel-heading -->
+				<div class="panel-body">
+					<table width="100%"
+						class="table table-striped table-bordered table-hover"
+						id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Index</th>
+								<th>Category</th>
+								<th>Description</th>
+								<th>Date</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX" ng-repeat="category in ctrl.categories">
+								<td>{{$index+1}}</td>
+								<td>{{category.categoryName}}</td>
+								<td>{{category.categoryDesc}}</td>
+								<td>{{category.createDate}}</td>
+								<td><button type="button" class="btn btn-link"
+										ng-click="ctrl.prepareEditCategory(category)">Edit</button></td>
+								<td><button type="button" class="btn btn-link"
+										ng-click="ctrl.deleteCategory(category.id)">Delete</button>
+								</td>
+
+							</tr>
+
+
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

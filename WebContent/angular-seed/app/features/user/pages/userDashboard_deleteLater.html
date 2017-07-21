@@ -1,0 +1,222 @@
+
+<div class="container" ng-controller="userController as ctrl">
+	<h1 class="well">User Dashboard</h1>
+
+
+	<uib-tabset active="active"> <uib-tab index="0"
+		heading="User Details">
+
+	<div>
+		<h3>Select User with its Identifier</h3>
+		<ui-select ng-model="ctrl.address.selected" theme="bootstrap"
+			ng-disabled="ctrl.disabled" reset-search-input="false"
+			style="width: 600px;" title="Choose an address"> <ui-select-match
+			placeholder="Enter an address...">{{$select.selected.formatted_address}}</ui-select-match>
+		<ui-select-choices repeat="address in ctrl.addresses track by $index"
+			refresh="ctrl.refreshAddresses($select.search)" refresh-delay="0">
+		<div
+			ng-bind-html="address.formatted_address | highlight: $select.search"></div>
+		</ui-select-choices> </ui-select>
+		<button type="button" class="btn btn-lg btn-info"
+			ng-click="ctrl.searchUser(userCtrl.user)">Search User</button>
+
+	</div>
+
+	<h3>User Info- For ----- User</h3>
+	<div class="col-lg-12 well">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Name:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.userName}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Email:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.userEmail}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Address:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.useraddress}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Expertise Area:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.expertiseArea}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Level of expertise:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.levelExpertise}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Service fee:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.servicefee}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Availability:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.availabilityFlag}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Total money earned:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.totalMoneyEarned}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Credibility:</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small">{{user.crediblity/10}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label>Experience (tasks accomplished):</label>
+					</div>
+					<div class="col-sm-8 form-group">
+						<label style="font-size: small;">{{user.experince}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</uib-tab> <uib-tab index="$index + 1" heading="Edit User"
+		disable="tab.disabled">
+
+
+	<div class="container">
+		<h1 class="well">Edit User</h1>
+		<div class="col-lg-12 well">
+			<div class="row">
+				<form name="myForm" required>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>First Name*</label> <input type="text" required
+									name="userFirstName" placeholder="Enter Name Here.."
+									class="form-control" ng-model="userCtrl.user.userFirstName">
+								<span style="color: Red"
+									ng-show="myForm.userFirstName.$dirty && myForm.userFirstName.$invalid">
+									<span ng-show="myForm.userFirstName.$error.required">Name
+										is required.</span>
+								</span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Last Name*</label> <input type="text" required
+									name="userLastName" placeholder="Enter Name Here.."
+									class="form-control" ng-model="userCtrl.user.userLastName">
+								<span style="color: Red"
+									ng-show="myForm.userLastName.$dirty && myForm.userLastName.$invalid">
+									<span ng-show="myForm.userLastName.$error.required">Name
+										is required.</span>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Email *</label> <input type="email" required
+									name="userEmail" ng-model-options="{ updateOn: 'blur' }"
+									ng-change='validateUsername(userCtrl.user.userEmail)'
+									placeholder="Enter Password Here.." class="form-control"
+									ng-model="userCtrl.user.userEmail"><span
+									style="color: Red"
+									ng-show="myForm.userEmail.$dirty && myForm.userEmail.$invalid">
+									<span ng-show="myForm.userEmail.$error.required">Email
+										is required.</span> <span ng-show="myForm.userEmail.$error.email">Invalid
+										email address.</span><span ng-show="myForm.userEmail.$error.sameName">Username
+										already exist in system.</span>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Password</label> <input type="password" required
+									name="userPassword" ng-maxlength="12" ng-minlength="5"
+									placeholder="Enter Password Here.." class="form-control"
+									ng-model="userCtrl.user.userPassword"><span
+									style="color: Red"
+									ng-show="myForm.userPassword.$dirty && myForm.userPassword.$invalid">
+									<span ng-show="myForm.userPassword.$error.required">Invalid
+										Password.</span> <span ng-show="myForm.userPassword.$error.minlength">Password
+										should be more than 4 keywords.</span> <span
+									ng-show="myForm.userPassword.$error.maxlength">Password
+										should be less than 12 keywords.</span>
+								</span>
+							</div>
+						</div>
+
+						<button type="button" class="btn btn-lg btn-info"
+							ng-click="userCtrl.createUser(userCtrl.user)">Sign Up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	</uib-tab> <uib-tab index="$index + 2" heading="Search Users"
+		disable="tab.disabled">
+
+	<div class="col-lg-12 well">
+		<h2>User Search Results- {{total Number of results}}</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>Task Id</th>
+					<th>Task Status</th>
+					<th>Date</th>
+					<th>Payment</th>
+					<th>Feedback</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="userTask in userTasklst">
+					<td>{{$index+1}}</td>
+					<td>{{userPendingTask.taskID}}</td>
+					<td>{{userPendingTask.taskStatus}}</td>
+					<td>{{userTask.createdDate | date:'medium'}}</td>
+					<td>{{userTask.moneyEarned}}</td>
+					<td>{{userTask.credibility}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<ul uib-pagination total-items="ctrl.pagination.bigTotalItems"
+		ng-model="ctrl.pagination.bigCurrentPage" max-size="ctrl.pagination.maxSize" class="pagination-sm"
+		boundary-link-numbers="true" rotate="false"></ul>
+</div>
+

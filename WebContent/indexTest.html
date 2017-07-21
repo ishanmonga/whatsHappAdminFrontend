@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" class="no-js">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>WhatsHapp Admin Portal</title>
+
+
+<link rel="stylesheet"
+	href="angular-seed/app/bower_components/html5-boilerplate/dist/css/normalize.css">
+<link rel="stylesheet"
+	href="angular-seed/app/bower_components/html5-boilerplate/dist/css/main.css">
+<link rel="stylesheet" href="angular-seed/app/app.css">
+
+
+<!-- Bootstrap Core CSS -->
+<link href="angular-seed/node_modules/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet">
+
+
+<link href="angular-seed/node_modules/ui-select/dist/select.css"
+	rel="stylesheet">
+
+
+<!-- MetisMenu CSS -->
+<link href="angular-seed/app/ui/vendor/metisMenu/metisMenu.min.css"
+	rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="angular-seed/app/ui/dist/css/sb-admin-2.css"
+	rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link
+	href="angular-seed/app/ui/vendor/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApoR1xWREuIsdQNskFgmDGpTxONkab-Bc&libraries=places"
+		type="text/javascript">
+	<!--
+		https: //developers.google.com/maps/documentation/javascript/examples/map-geolocation
+		-->
+	</script>
+<script src="angular-seed/node_modules/angular/angular.js"></script>
+<script
+	src="angular-seed/app/bower_components/angular-route/angular-route.js"></script>
+<script
+	src="angular-seed/app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+<script
+	src="angular-seed/node_modules/angular-cookies/angular-cookies.min.js"></script>
+<!-- 	<script
+		src="angular-seed/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script> -->
+<script
+	src="angular-seed/node_modules/angular-animate/angular-animate.js"></script>
+
+<script
+	src="angular-seed/node_modules/angular-sanitize/angular-sanitize.js"></script>
+<script
+	src="angular-seed/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<!-- <script
+		src="angular-seed/node_modules/ng-resource/lib/angular-resource.js"></script> -->
+
+
+</head>
+
+<style>
+.google-map {
+	width: 500px;
+	height: 400px;
+}
+
+#mapTokyo {
+	width: 500px;
+	height: 400px;
+}
+</style>
+
+</head>
+
+<body ng-app="myApp" ng-controller="MyCtrl as vm">
+	Auto Complete Type:
+	<select ng-model="vm.types">
+		<option value="['geocode']">Geodode</option>
+		<option value="['establishment']">Establishment</option>
+		<option value="['address']">Address</option>
+	</select>
+	<br /> Enter an address:
+	<br />
+	<input places-auto-complete size=80 ng-model="vm.address"
+		 types="{{types}}"
+		on-place-changed="vm.placeChanged()" />
+	<br />
+	<div ng-show="vm.place">
+		Address = {{vm.place.formatted_address}} <br /> Location:
+		{{vm.place.geometry.location}}<br />
+	</div>
+	address : {{vm.address}}
+	<ng-map></ng-map>
+</body>
+
+
+
+<!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+<!-- 	<script src="angular-seed/app/bower_components/angular/angular.js"></script> -->
+
+<!-- jQuery -->
+<script src="angular-seed/app/ui/vendor/jquery/jquery.min.js"></script>
+
+
+<!-- utility modeules -->
+<script
+	src="angular-seed/node_modules/angular-messages/angular-messages.js"></script>
+
+<script
+	src="angular-seed/node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+
+<script
+	src="angular-seed/node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+
+<script src="angular-seed/node_modules/ui-select/dist/select.js"></script>
+
+<script
+	src="angular-seed/node_modules/ngmap/build/scripts/ng-map.min.js"></script>
+<script src="angular-seed/node_modules/lodash/lodash.js"></script>
+<script
+	src="angular-seed/node_modules/angular-google-maps/dist/angular-google-maps.min.js"></script>
+
+
+
+
+
+
+<!-- Bootstrap Core JavaScript -->
+<script src="angular-seed/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+<!-- custom directives -->
+<script src="angular-seed/app/common/whDirective.js"></script>
+<script src="angular-seed/app/common/errorMessge/errorMessge.js"></script>
+<script src="angular-seed/app/common/uploadFiles/fileUpload.js"></script>
+<script src="angular-seed/app/common/datePopup/datePopup.js"></script>
+<script src="angular-seed/app/common/googleMaps/googleMaps.js"></script>
+
+
+
+
+
+
+
+<!-- application -->
+<script src="angular-seed/app/app.js"></script>
+<script src="angular-seed/app/components/version/version.js"></script>
+<script src="angular-seed/app/components/version/version-directive.js"></script>
+<script src="angular-seed/app/components/version/interpolate-filter.js"></script>
+<!-- core -->
+<script src="angular-seed/app/core/coreDependencies.js"></script>
+<script src="angular-seed/app/common/constants.js"></script>
+<!-- user -->
+<script src="angular-seed/app/features/user/ctrl/login.ctrl.js"></script>
+<script src="angular-seed/app/features/user/ctrl/user.ctrl.js"></script>
+<script src="angular-seed/app/features/user/ctrl/user.dashboard.ctrl.js"></script>
+<script src="angular-seed/app/features/user/services/user.serv.js"></script>
+<script src="angular-seed/app/features/user/services/login.serv.js"></script>
+
+
+<!-- category -->
+<script src="angular-seed/app/features/category/ctrl/category.ctrl.js"></script>
+<script
+	src="angular-seed/app/features/category/services/category.serv.js"></script>
+
+
+
+<!-- events -->
+<script src="angular-seed/app/features/events/ctrl/events.ctrl.js"></script>
+
+<!-- dashboard -->
+<script src="angular-seed/app/features/dashboard/ctrl/dashboard.ctrl.js"></script>
+
+
+<!-- feed -->
+<script src="angular-seed/app/features/feed/ctrl/feed.ctrl.js"></script>
+<script src="angular-seed/app/features/feed/services/feed.serv.js"></script>
+
+
+
+
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="angular-seed/app/ui/vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="angular-seed/app/ui/dist/js/sb-admin-2.js"></script>
+<script>
+angular.module('myApp', ['ngMap']).controller('MyCtrl', function(NgMap) {
+  var vm = this;
+  vm.types = "['establishment']";
+  vm.placeChanged = function() {
+    vm.place = this.getPlace();
+    console.log('location', vm.place.geometry.location);
+    vm.map.setCenter(vm.place.geometry.location);
+  }
+  NgMap.getMap().then(function(map) {
+    vm.map = map;
+  });
+ });
+</script>
+</body>
+
+</html>

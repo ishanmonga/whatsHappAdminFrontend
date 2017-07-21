@@ -1,0 +1,115 @@
+
+<div class="container" ng-controller="feedController as ctrl">
+	<h1 class="well">Create Feed</h1>
+
+
+	<wh-error-message messages='ctrl.messages.content'
+		type='ctrl.messages.type'></wh-error-message>
+
+	<div class="col-lg-12 well">
+		<div class="row">
+			<form  novalidate>
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<label>Feed Heading</label> <span class="mandatorySign">*</span>
+							<input type="text" ng-model="ctrl.feed.feedHeading"
+								placeholder="Enter Feed Name Here.." class="form-control">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<label>Feed Message</label><span class="mandatorySign">*</span>
+							<textarea ng-model="ctrl.feed.feedMessage" required
+								placeholder="Enter Feed Message Here.." rows="3"
+								class="form-control"></textarea>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<label>Feed Pictures</label> <span class="mandatorySign">*</span>
+						<wh-media-upload properties="ctrl.media"
+								on-media-load-callback="ctrl.onMediaLoadCallback(mediaName)"></wh-media-upload>						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<label>Select Your Type</label><span class="mandatorySign">*</span>
+							<select ng-model="ctrl.types">
+								<option value="['geocode']">GeoCode</option>
+								<option value="['establishment']">Establishment</option>
+								<option value="['address']">Address</option>
+							</select>
+						</div>
+
+
+						<div class="col-sm-12 form-group">
+							<label>Enter Your Address</label><span class="mandatorySign">*</span>
+							<input places-auto-complete size=80
+								ng-model="ctrl.feed.feedAddress" types="{{ctrl.types}}"
+								on-place-changed="ctrl.placeChanged()" />
+						</div>
+
+						<div ng-if="ctrl.place" class="col-sm-12 form-group">
+							<div>Address = {{ctrl.place.formatted_address}}</div>
+							<div>Location: {{ctrl.place.geometry.location}}</div>
+						</div>
+
+						<div class="col-sm-12 form-group">
+							<ng-map></ng-map>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 form-group">
+							<button ng-if="ctrl.feed.id" type="button"
+								ng-click="ctrl.editFeed(ctrl.feed)" class="btn btn-lg btn-info">Update</button>
+							<button ng-if="!ctrl.feed.id" type="button"
+								ng-click="ctrl.createFeed(ctrl.feed)"
+								class="btn btn-lg btn-info">Create</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Feed Description Table</div>
+				<!--    /.panel-heading -->
+				<div class="panel-body">
+					<table width="100%"
+						class="table table-striped table-bordered table-hover"
+						id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Index</th>
+								<th>Feed Heading</th>
+								<th>Message</th>
+								<th>Address</th>
+								<th>Create Date</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="odd gradeX" ng-repeat="feed in ctrl.feeds">
+								<td>{{$index+1}}</td>
+								<td>{{feed.feedHeading}}</td>
+								<td>{{feed.feedMessage}}</td>
+								<td>{{feed.feedAddress}}</td>
+								<td>{{feed.createDate}}</td>
+								<td><button type="button" class="btn btn-link"
+										ng-click="ctrl.prepareEditFeed(feed)">Edit</button></td>
+								<td><button type="button" class="btn btn-link"
+										ng-click="ctrl.deleteFeed(feed.id)">Delete</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

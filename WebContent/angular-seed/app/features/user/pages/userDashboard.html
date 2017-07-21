@@ -1,0 +1,115 @@
+
+<div class="container" ng-controller="userController as ctrl">
+	<h1 class="well">User Dashboard</h1>
+	<uib-tabset active="1"> <uib-tab index="0"
+		heading="User Details">
+	<div class="col-lg-12 well">
+		<h2>User Search Results- }</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>S.No</th>
+					<th>Name</th>
+					<th>UserName</th>
+					<th>Created On</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in ctrl.users">
+					<td>{{$index+1}}</td>
+					<td>{{user.userFirstName }}{{user.userLastName}}</td>
+					<td>{{user.userEmail}}</td>
+					<td>{{user.createDate | date:'medium'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<ul uib-pagination total-items="ctrl.pagination.bigTotalItems"
+		ng-model="ctrl.pagination.bigCurrentPage"
+		max-size="ctrl.pagination.maxSize" class="pagination-sm"
+		boundary-link-numbers="true" rotate="false"></ul>
+		
+		</uib-tab>
+		<uib-tab index="$index + 1" heading="Edit User"
+		disable="tab.disabled">
+
+
+	<div class="container">
+		<h1 class="well">Edit User</h1>
+		<div class="col-lg-12 well">
+			<div class="row">
+				<form name="myForm" required>
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>First Name*</label> <input type="text" required
+									name="userFirstName" placeholder="Enter Name Here.."
+									class="form-control" ng-model="userCtrl.user.userFirstName">
+								<span style="color: Red"
+									ng-show="myForm.userFirstName.$dirty && myForm.userFirstName.$invalid">
+									<span ng-show="myForm.userFirstName.$error.required">Name
+										is required.</span>
+								</span>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Last Name*</label> <input type="text" required
+									name="userLastName" placeholder="Enter Name Here.."
+									class="form-control" ng-model="userCtrl.user.userLastName">
+								<span style="color: Red"
+									ng-show="myForm.userLastName.$dirty && myForm.userLastName.$invalid">
+									<span ng-show="myForm.userLastName.$error.required">Name
+										is required.</span>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Email *</label> <input type="email" required
+									name="userEmail" ng-model-options="{ updateOn: 'blur' }"
+									ng-change='validateUsername(userCtrl.user.userEmail)'
+									placeholder="Enter Password Here.." class="form-control"
+									ng-model="userCtrl.user.userEmail"><span
+									style="color: Red"
+									ng-show="myForm.userEmail.$dirty && myForm.userEmail.$invalid">
+									<span ng-show="myForm.userEmail.$error.required">Email
+										is required.</span> <span ng-show="myForm.userEmail.$error.email">Invalid
+										email address.</span><span ng-show="myForm.userEmail.$error.sameName">Username
+										already exist in system.</span>
+								</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 form-group">
+								<label>Password</label> <input type="password" required
+									name="userPassword" ng-maxlength="12" ng-minlength="5"
+									placeholder="Enter Password Here.." class="form-control"
+									ng-model="userCtrl.user.userPassword"><span
+									style="color: Red"
+									ng-show="myForm.userPassword.$dirty && myForm.userPassword.$invalid">
+									<span ng-show="myForm.userPassword.$error.required">Invalid
+										Password.</span> <span ng-show="myForm.userPassword.$error.minlength">Password
+										should be more than 4 keywords.</span> <span
+									ng-show="myForm.userPassword.$error.maxlength">Password
+										should be less than 12 keywords.</span>
+								</span>
+							</div>
+						</div>
+
+						<button type="button" class="btn btn-lg btn-info"
+							ng-click="userCtrl.createUser(userCtrl.user)">Sign Up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	</uib-tab>
+		
+		
+		</uib-tabset>
+</div>
